@@ -10,7 +10,8 @@ public class UIStateManager : MonoBehaviour
         MainMenu,
         Options,
         Gameplay,
-        Pause
+        Pause,
+        Win //  NUEVO
     }
 
     [Header("Panels")]
@@ -18,6 +19,7 @@ public class UIStateManager : MonoBehaviour
     [SerializeField] private GameObject panelOptions;
     [SerializeField] private GameObject panelHUB;
     [SerializeField] private GameObject panelPause;
+    [SerializeField] private GameObject MiniMapa;
 
     [Header("Debug")]
     [SerializeField] private TextMeshProUGUI txtStateDebug;
@@ -48,32 +50,39 @@ public class UIStateManager : MonoBehaviour
     {
         currentState = newState;
 
-        // Apagar todos los paneles
+        // Apagar TODO
         if (panelMainMenu != null) panelMainMenu.SetActive(false);
         if (panelOptions != null) panelOptions.SetActive(false);
         if (panelHUB != null) panelHUB.SetActive(false);
         if (panelPause != null) panelPause.SetActive(false);
+        if (MiniMapa != null) MiniMapa.SetActive(false);
 
         switch (currentState)
         {
             case UIState.MainMenu:
                 if (panelMainMenu != null) panelMainMenu.SetActive(true);
-                Time.timeScale = 0f;   //  PAUSA EL JUEGO
+                Time.timeScale = 0f;
                 break;
 
             case UIState.Options:
                 if (panelOptions != null) panelOptions.SetActive(true);
-                Time.timeScale = 0f;   // también pausado
+                Time.timeScale = 0f;
                 break;
 
             case UIState.Gameplay:
                 if (panelHUB != null) panelHUB.SetActive(true);
-                Time.timeScale = 1f;   // reanuda
+                if (MiniMapa != null) MiniMapa.SetActive(true);
+                Time.timeScale = 1f;
                 break;
 
             case UIState.Pause:
                 if (panelPause != null) panelPause.SetActive(true);
-                Time.timeScale = 0f;   // pausa
+                Time.timeScale = 0f;
+                break;
+
+            case UIState.Win:
+                //  aquí se apaga HUD y minimapa
+                Time.timeScale = 0f;
                 break;
         }
 
@@ -93,10 +102,9 @@ public class UIStateManager : MonoBehaviour
 
     public void OnClickBackToMainMenu()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-
 
     public void OnClickResume()
     {

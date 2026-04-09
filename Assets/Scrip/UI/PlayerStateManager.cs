@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
@@ -209,6 +210,15 @@ public class PlayerStateManager : MonoBehaviour
     {
         if (isDead || hasWon) return;
 
+        // VERIFICAR ESCUDO
+        PlayerShield shield = GetComponent<PlayerShield>();
+
+        if (shield != null && shield.IsShieldActive())
+        {
+            Debug.Log("DAÑO BLOQUEADO POR ESCUDO");
+            return;
+        }
+
         currentHealth -= amount;
 
         if (animator != null)
@@ -319,5 +329,18 @@ public class PlayerStateManager : MonoBehaviour
     {
         if (healthText != null)
             healthText.text = $"Vida: {currentHealth}";
+    }
+
+    // =========================================================
+    // Getters & Setters
+    // =========================================================
+    public float GetMoveSpeed()
+    {
+        return moveSpeed;
+    }
+
+    public void SetMoveSpeed(float newSpeed)
+    {
+        moveSpeed = newSpeed;
     }
 }
