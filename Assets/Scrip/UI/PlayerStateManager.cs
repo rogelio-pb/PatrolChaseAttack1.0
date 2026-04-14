@@ -11,7 +11,7 @@ public class PlayerStateManager : MonoBehaviour
     // =========================================================
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private bool rotateForVertical = true;
+
 
     // =========================================================
     // Inspector: Screen Wrap
@@ -61,7 +61,7 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField] private int survivalPointsPerSecond = 1;
     [SerializeField] private int healthBonusPoints = 20;
 
-    [SerializeField] private int totalRunes = 3; // runas necesarias para ganar
+  
     [SerializeField] private TextMeshProUGUI finalScoreText;
 
     // =========================================================
@@ -77,7 +77,7 @@ public class PlayerStateManager : MonoBehaviour
     private float survivalTimer = 0f;
     private int survivalSeconds = 0;
 
-    private int runesCollected = 0;
+    
 
     private static readonly int HashIsMoving = Animator.StringToHash("isMoving");
     private static readonly int HashMoveX = Animator.StringToHash("moveX");
@@ -256,19 +256,14 @@ public class PlayerStateManager : MonoBehaviour
     // =========================================================
     // Rune System
     // =========================================================
-    public void CollectRune()
+    
+    public void WinFromRunes()
     {
-        runesCollected++;
+        if (hasWon) return;
 
-        Debug.Log("Runas recolectadas: " + runesCollected);
+        Debug.Log("GANASTE POR RUNAS");
 
-        AddPoints(runePoints);
-
-        if (runesCollected >= totalRunes)
-        {
-            Debug.Log("GANASTE");
-            WinGame();
-        }
+        WinGame();
     }
 
     // =========================================================
@@ -282,11 +277,21 @@ public class PlayerStateManager : MonoBehaviour
         UpdatePointsUI();
     }
 
+
     private void WinGame()
     {
         hasWon = true;
 
-        int runeScore = runesCollected * runePoints;
+        PlayerRuneInventory inventory = GetComponent<PlayerRuneInventory>();
+
+        int deliveredRunes = 0;
+
+        if (inventory != null)
+        {
+            deliveredRunes = inventory.GetTotalRunesDelivered();
+        }
+
+        int runeScore = deliveredRunes * runePoints;
         int survivalScore = survivalSeconds * survivalPointsPerSecond;
         int healthBonus = currentHealth * healthBonusPoints;
 
@@ -296,7 +301,7 @@ public class PlayerStateManager : MonoBehaviour
 
         UpdatePointsUI();
 
-        Debug.Log("Runas: " + runeScore);
+        Debug.Log("Runas entregadas: " + deliveredRunes);
         Debug.Log("Supervivencia: " + survivalScore);
         Debug.Log("Bonus vida: " + healthBonus);
         Debug.Log("Score final: " + finalScore);

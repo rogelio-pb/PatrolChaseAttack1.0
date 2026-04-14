@@ -12,7 +12,7 @@ public class PlayerStatus : MonoBehaviour
     private float slowTimer = 0f;
     private float freezeTimer = 0f;
 
-    private float damageTimer = 0f;
+    
 
     private void Start()
     {

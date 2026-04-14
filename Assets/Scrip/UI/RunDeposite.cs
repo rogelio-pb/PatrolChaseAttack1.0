@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RuneCollectible : MonoBehaviour
+public class RuneDepositZone : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -8,12 +8,7 @@ public class RuneCollectible : MonoBehaviour
 
         if (inventory != null)
         {
-            bool collected = inventory.AddRune();
-
-            if (collected)
-            {
-                Destroy(gameObject);
-            }
+            inventory.DeliverRunes();
         }
     }
 }

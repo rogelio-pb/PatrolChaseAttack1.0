@@ -16,7 +16,7 @@ public class PlayerShield : MonoBehaviour
     private float shieldTimer = 0f;
     private float cooldownTimer = 0f;
 
-    private PlayerStateManager player;
+    private PlayerStateManager player;//agarrar el player para que sepa si tiene escudo o no
 
     private void Start()
     {
