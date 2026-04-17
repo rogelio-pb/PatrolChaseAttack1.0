@@ -144,6 +144,6 @@ public class PlayerRuneInventory : MonoBehaviour
     private void UpdateUI()
     {
         if (runeText != null)
-            runeText.text = $"Runas: {currentRunes}/{maxRunes}";
+            runeText.text = $"Runes: {currentRunes}/{maxRunes}";
     }
 }

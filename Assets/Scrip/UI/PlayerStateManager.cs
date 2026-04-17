@@ -368,10 +368,10 @@ public class PlayerStateManager : MonoBehaviour
         if (finalScoreText != null)
         {
             finalScoreText.text =
-            "RUNAS: " + runeScore +
-            "\nTIEMPO: " + survivalScore +
-            "\nVIDA BONUS: " + healthBonus +
-            "\n\nSCORE FINAL: " + finalScore;
+            "RUNES: " + runeScore +
+            "\nTIME: " + survivalScore +
+            "\nHEALTH BONUS: " + healthBonus +
+            "\n\nFINAL SCORE: " + finalScore;
         }
 
         if (winPanel != null)
@@ -386,7 +386,7 @@ public class PlayerStateManager : MonoBehaviour
     private void UpdatePointsUI()
     {
         if (pointsText != null)
-            pointsText.text = $"Puntos: {currentPoints}";
+            pointsText.text = $"Points: {currentPoints}";
     }
 
     // =========================================================
@@ -399,7 +399,7 @@ public class PlayerStateManager : MonoBehaviour
     private void UpdateHealthUI()
     {
         if (healthText != null)
-            healthText.text = $"Vida: {currentHealth}";
+            healthText.text = $"Health: {currentHealth}";
     }
 
     // =========================================================
