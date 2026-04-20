@@ -112,22 +112,26 @@ public class UIStateManager : MonoBehaviour
         {
             case UIState.MainMenu:
                 if (panelMainMenu != null) panelMainMenu.SetActive(true);
+                MusicManager.Instance.PlayMenuMusic();
                 Time.timeScale = 0f;
                 break;
 
             case UIState.Options:
                 if (panelOptions != null) panelOptions.SetActive(true);
+                MusicManager.Instance.PlayMenuMusic();
                 Time.timeScale = 0f;
                 break;
 
             case UIState.Gameplay:
                 if (panelHUB != null) panelHUB.SetActive(true);
                 if (MiniMapa != null) MiniMapa.SetActive(true);
+                MusicManager.Instance.PlayGameplayMusic();
                 Time.timeScale = 1f;
                 break;
 
             case UIState.Pause:
                 if (panelPause != null) panelPause.SetActive(true);
+                MusicManager.Instance.PlayGameplayMusic();
                 Time.timeScale = 0f;
                 break;
 

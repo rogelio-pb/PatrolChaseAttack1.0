@@ -104,6 +104,11 @@ public class PlayerStateManager : MonoBehaviour
     /// <summary>Texto final del score.</summary>
     [SerializeField] private TextMeshProUGUI finalScoreText;
 
+
+    [Header("Audio SFX")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip damageSound;
+    
     // =========================================================
     // VARIABLES INTERNAS
     // =========================================================
@@ -274,6 +279,8 @@ public class PlayerStateManager : MonoBehaviour
         }
 
         currentHealth -= amount;
+        if (audioSource != null && damageSound != null)
+            audioSource.PlayOneShot(damageSound);
 
         if (animator != null)
             animator.SetTrigger(HashHit);
@@ -309,6 +316,7 @@ public class PlayerStateManager : MonoBehaviour
     {
         if (gameOverPanel != null)
             gameOverPanel.SetActive(true);
+        MusicManager.Instance.PlayGameOverMusic();
 
         Time.timeScale = 0f;
     }
@@ -350,7 +358,7 @@ public class PlayerStateManager : MonoBehaviour
     private void WinGame()
     {
         hasWon = true;
-
+        MusicManager.Instance.PlayWinMusic();
         PlayerRuneInventory inventory = GetComponent<PlayerRuneInventory>();
 
         int deliveredRunes = (inventory != null) ? inventory.GetTotalRunesDelivered() : 0;
